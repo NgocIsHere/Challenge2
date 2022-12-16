@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 
-int Max(int a, int b);
+int Max(int a, int b, long long &count_cmp);
 
 /*Maximal suffix of a string x: Let x = p.u, no prefix of u will be equal to a prefix ò v
 Ex: x = u.v = ac.dcdcddc , no suffix of u equal to a prefix of v*/
@@ -14,9 +14,9 @@ than length of x divides by 2, it' ll be short maximal suffix of x*/
 https://codebrowser.dev/glibc/glibc/string/str-two-way.h.html
 https://www.slideserve.com/swain/two-way-algorithm */
 /*Index for maximal suffix for <= */
-int maxSuffix(std::string pat, int lengthPat, int &period);
+int maxSuffix(std::string pat, int lengthPat, int &period, long long &count_cmp);
 
 /*Maximal suffix for another way (>=)*/
-int maxSuffixRev(std::string pat, int lengthPat, int &period);
+int maxSuffixRev(std::string pat, int lengthPat, int &period, long long &count_cmp);
 
-void TwoWayMatching(std::string pat, int patLength, std::string txt, int txtLength, std::string outputDir);
+void TwoWayMatching(std::string pat, int patLength, std::string txt, int txtLength, std::string outputDir, long long &count_cmp);
