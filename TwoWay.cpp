@@ -2,9 +2,9 @@
 
 using namespace std;
 
-int Max(int a, int b)
+int Max(int a, int b, long long &count_cmp)
 {
-	if (a > b)
+	if (++count_cmp && a > b)
 		return a;
 	return b;
 }
@@ -18,7 +18,7 @@ than length of x divides by 2, it' ll be short maximal suffix of x*/
 https://codebrowser.dev/glibc/glibc/string/str-two-way.h.html
 https://www.slideserve.com/swain/two-way-algorithm */
 /*Index for maximal suffix for <= */
-int maxSuffix(string pat, int lengthPat, int &period)
+int maxSuffix(string pat, int lengthPat, int &period, long long &count_cmp)
 {
 	int ms, j, k;
 	char m, n;
@@ -26,18 +26,18 @@ int maxSuffix(string pat, int lengthPat, int &period)
 	ms = -1;
 	j = 0;
 	k = period = 1;
-	while (j + k < lengthPat) {
+	while (++count_cmp && j + k < lengthPat) {
 		m = pat[j + k];
 		n = pat[ms + k];
-		if (m < n) {
+		if (++count_cmp && m < n) {
 			j += k;
 			k = 1;
 			period = j - ms;
 		}
 		else
 		{
-			if (m == n) {
-				if (k != period)
+			if (++count_cmp && m == n) {
+				if (++count_cmp && k != period)
 					k++;
 				else
 				{
@@ -58,7 +58,7 @@ int maxSuffix(string pat, int lengthPat, int &period)
 }
 
 /*Maximal suffix for another way (>=)*/
-int maxSuffixRev(string pat, int lengthPat, int &period)
+int maxSuffixRev(string pat, int lengthPat, int &period, long long &count_cmp)
 {
 	int ms, j, k;
 	char m, n;
@@ -66,18 +66,18 @@ int maxSuffixRev(string pat, int lengthPat, int &period)
 	ms = -1;
 	j = 0;
 	k = period = 1;
-	while (j + k < lengthPat) {
+	while (++count_cmp && j + k < lengthPat) {
 		m = pat[j + k];
 		n = pat[ms + k];
-		if (m > n) {
+		if (++count_cmp && m > n) {
 			j += k;
 			k = 1;
 			period = j - ms;
 		}
 		else
 		{
-			if (m == n) {
-				if (k != period)
+			if (++count_cmp && m == n) {
+				if (++count_cmp && k != period)
 					k++;
 				else
 				{
@@ -97,8 +97,9 @@ int maxSuffixRev(string pat, int lengthPat, int &period)
 	return ms;
 }
 
-void TwoWayMatching(string pat, int patLength, string txt, int txtLength, string outputDir)
+void TwoWayMatching(string pat, int patLength, string txt, int txtLength, string outputDir, long long &count_cmp)
 {
+	count_cmp = 0;
 	fstream file;
 	file.open(outputDir.c_str(), ios::out | ios::trunc);
 	if (!file) {
@@ -112,9 +113,9 @@ void TwoWayMatching(string pat, int patLength, string txt, int txtLength, string
 	int p, q; //Period by scanning to find maximal suffix in two ways
 
 	//Preprocessing (critical factorization)
-	i = maxSuffix(pat, pat.size(), p);
-	j = maxSuffixRev(pat, pat.size(), q);
-	if (i > j)
+	i = maxSuffix(pat, pat.size(), p, count_cmp);
+	j = maxSuffixRev(pat, pat.size(), q, count_cmp);
+	if (++count_cmp && i > j)
 	{
 		suffix = i;
 		period = p;
@@ -126,27 +127,26 @@ void TwoWayMatching(string pat, int patLength, string txt, int txtLength, string
 	}
 
 	//Searching
-	if (pat.substr(0, suffix + 1).compare(pat.substr(period, suffix + 1)) == 0)
+	if (++count_cmp && pat.substr(0, suffix + 1).compare(pat.substr(period, suffix + 1)) == 0)
 	{
 		/*The reference from glibc will add 1 to the suffix index, reference from
 		univ-mlv.fr doesn't (which I reimplemented in C++)*/
 		/*Entire pattern string is periodic*/
 		j = 0; //Index to the current window of matched string txt
 		memory = -1;
-		while (j <= txtLength - patLength)
+		while (++count_cmp && j <= txtLength - patLength)
 		{
-			i = Max(suffix, memory) + 1; //Index of current character of pattern string
-			while (i < patLength && pat[i] == txt[i + j])
+			i = Max(suffix, memory, count_cmp) + 1; //Index of current character of pattern string
+			while (++count_cmp && i < patLength && pat[i] == txt[i + j])
 				i++;
-			if (i >= patLength) {
+			if (++count_cmp && i >= patLength) {
 				/*Scan for matches in left half*/
 				i = suffix;
-				while (i > memory && pat[i] == txt[i + j])
+				while (++count_cmp && i > memory && pat[i] == txt[i + j])
 					i--;
-				if (i <= memory)
+				if (++count_cmp && i <= memory)
 				{
 					file << j << " " << j + patLength - 1 << endl;
-					cout << "Pattern found at: " << j << endl;
 				}
 				j += period;
 				memory = patLength - period - 1;
@@ -161,20 +161,19 @@ void TwoWayMatching(string pat, int patLength, string txt, int txtLength, string
 	{
 		/*The two halves of pattern string are distinct, no extra memory required, any mismatch
 		results in maximal shift*/
-		period = Max(suffix + 1, patLength - suffix - 1) + 1;
+		period = Max(suffix + 1, patLength - suffix - 1, count_cmp) + 1;
 		j = 0;
-		while (j <= txtLength - patLength) {
+		while (++count_cmp && j <= txtLength - patLength) {
 			i = suffix + 1;
-			while (i < patLength && pat[i] == txt[i + j])
+			while (++count_cmp && i < patLength && pat[i] == txt[i + j])
 				i++;
-			if (i >= patLength) {
+			if (++count_cmp && i >= patLength) {
 				i = suffix;
-				while (i >= 0 && pat[i] == txt[i + j])
+				while (++count_cmp && i >= 0 && pat[i] == txt[i + j])
 					i--;
 				if (i < 0)
 				{
 					file << j << " " << j + patLength - 1 << endl;
-					cout << "Pattern found at: " << j << endl;
 				}
 				j += period;
 			}
