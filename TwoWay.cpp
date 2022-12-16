@@ -181,4 +181,5 @@ void TwoWayMatching(string pat, int patLength, string txt, int txtLength, string
 				j += i - suffix;
 		}
 	}
+	file.close();
 }
