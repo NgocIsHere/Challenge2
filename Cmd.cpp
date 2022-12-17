@@ -96,14 +96,14 @@ void Cmd(int argc, char **argv)
         {
             if (s[i] * 100 > s[j] * 10)
             {
-                //createData(s[j] * 10, s[i] * 100, ipath+to_string(i)+to_string(j), false);
+                createData(s[j] * 10, s[i] * 100, ipath+to_string(i)+to_string(j), false);
                 ifstream readfile;
                 readfile.open((ipath+to_string(i)+to_string(j)).c_str());
                 getline(readfile, pat);
                 getline(readfile, txt);
                 readfile.close();
-                cout << "Actual size of pattern string: " << pat.size() << " | Actual size of matched string: " << txt.size() << endl;
-                vector<pair<int,int>> pos = OutInfo(out, Alg, pat, txt, opath);
+                cout<<"  #"<<(ipath+to_string(i)+to_string(j)).c_str()<<" "<<s[j] * 10<<" "<< s[i] * 100<<endl;
+                vector<pair<int,int>> pos = OutInfo(out, Alg, pat, txt, opath+to_string(i)+to_string(j));
                 saveOutF(opath+to_string(i)+to_string(j), pos);
             }
         }
@@ -113,4 +113,3 @@ int main(int argc, char **argv)
     Cmd(argc, argv);
     return 0;
 }
-
