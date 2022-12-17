@@ -96,8 +96,6 @@ void Cmd(int argc, char **argv)
         {
             if (s[i] * 100 > s[j] * 10)
             {
-                cout << "Pattern string size: " << s[i] * 100 << endl;
-                cout << "Matched string size: " << s[j] * 10 << endl;
                 createData(s[j] * 10, s[i] * 100, ipath, false);
                 ifstream readfile;
                 readfile.open(ipath);
