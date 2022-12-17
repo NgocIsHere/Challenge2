@@ -1,7 +1,5 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <math.h>
+#include "Header.h"
+
 // d is the number of characters
 #define d 256
 // q = INT_MAX  to avoid integer overflow
@@ -9,7 +7,7 @@
 
 using namespace std;
 
-vector<pair<int, int>> RabinKarpAlgo(string pattern, string text, int &c)
+vector<pair<int, int>> RabinKarpAlgo(string pattern, string text, long long &c)
 {
     vector<pair<int, int>> pos;
     int n = text.length();
@@ -62,14 +60,13 @@ vector<pair<int, int>> RabinKarpAlgo(string pattern, string text, int &c)
 
     return pos;
 }
-
-void computePrefix(string pattern, int m, int lps[], int &c)
+void computePrefix(string pattern, int m, int* lps, long long &c)
 {
     int len = 0;
     // First element always 0
     lps[0] = 0;
     int i = 1;
-
+ 
     while (++c && i < m)
     {
         if (++c && pattern[i] == pattern[len])
@@ -85,18 +82,18 @@ void computePrefix(string pattern, int m, int lps[], int &c)
         }
     }
 }
-
-vector<pair<int, int>> KMPAlgo(string pattern, string text, int &c)
+ 
+vector<pair<int, int>> KMPAlgo(string pattern, string text, long long &c)
 {
     vector<pair<int, int>> pos;
     int m = pattern.length();
     int n = text.length();
     // lps[] will hold the longest prefix suffix
-    int lps[m];
+    int* lps = new int [m];
     // calculate lps[]
     computePrefix(pattern, m, lps, c);
     int i = 0, j = 0;
-
+ 
     while (++c && (n - i) >= (m - j))
     {
         if (++c && pattern[j] == text[i])
@@ -118,9 +115,12 @@ vector<pair<int, int>> KMPAlgo(string pattern, string text, int &c)
                 i = i + 1;
         }
     }
+    delete lps;
     return pos;
+ 
 }
-
+ 
+/*
 int main()
 {
 
@@ -154,3 +154,4 @@ int main()
 
     return 0;
 }
+*/

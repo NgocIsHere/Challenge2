@@ -1,9 +1,4 @@
-#include "DataGenerator.h"
-#include "TwoWay.h"
-#include <windows.h>
-using namespace std;
-
-
+#include "Header.h"
 void createData(int lengthPat, int lengthTxt, string fileDir, bool randTxt)
 {
 	/*Ham tao file (neu file chua ton tai) chua 2 dong chuoi doi sanh 
@@ -77,7 +72,7 @@ void createData(int lengthPat, int lengthTxt, string fileDir, bool randTxt)
 	//Dong file
 	file.close();
 }
-
+/*
 int main()
 {
 	long long count_cmp;
@@ -95,75 +90,12 @@ int main()
 				string pat, txt;
 				getline(readfile, pat); getline(readfile, txt);
 				cout<<"Actual size of pattern string: "<<pat.size()<<" | Actual size of matched string: "<<txt.size()<<endl;
-				
-				count_cmp = 0;
-				auto t1 = std::chrono::high_resolution_clock::now();
-				
-				cout << "Algorithm: Brute-Force" << endl;
-				
-				/*Function*/
-				
-				auto t2 = std::chrono::high_resolution_clock::now();
-				auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1);
-				double time = duration.count() / 1000000.0;
-				cout << "Comparision: "<< count_cmp << " | Time count: " << time << " microseconds"<< endl;
-				cout<<"-------------------------------------------------"<<endl;
-				
-				count_cmp = 0;
-				t1 = std::chrono::high_resolution_clock::now();
-				/*Quang 1 ham so chuoi vao day*/
-				cout << "Algorithm: Rabin-Karp" << endl;
-				
-				/*Function*/
-				
-				t2 = std::chrono::high_resolution_clock::now();
-				duration = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 -t1);
-				time = duration.count() / 1000000.0;
-				cout << "Comparision: "<< count_cmp << " | Time count: " << time << " microseconds"<< endl;
-				cout<<"-------------------------------------------------"<<endl;
-				
-				count_cmp = 0;
-				t1 = std::chrono::high_resolution_clock::now();
-				/*Quang 1 ham so chuoi vao day*/
-				cout << "Algorithm: Knuth-Morris-Pratt" << endl;
-				
-				/*Function*/
-				
-				t2 = std::chrono::high_resolution_clock::now();
-				duration = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 -t1);
-				time = duration.count() / 1000000.0;
-				cout << "Comparision: "<< count_cmp << " | Time count: " << time << " microseconds"<< endl;
-				cout<<"-------------------------------------------------"<<endl;
-				
-				count_cmp = 0;
-				t1 = std::chrono::high_resolution_clock::now();
-				/*Quang 1 ham so chuoi vao day*/
-				cout << "Algorithm: Boyer-Moore" << endl;
-				
-				/*Function*/
-				
-				t2 = std::chrono::high_resolution_clock::now();
-				duration = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 -t1);
-				time = duration.count() / 1000000.0;
-				cout << "Comparision: "<< count_cmp << " | Time count: " << time << " microseconds"<< endl;
-				cout<<"-------------------------------------------------"<<endl;
-				
-				count_cmp = 0;
-				t1 = std::chrono::high_resolution_clock::now();
-				/*Quang 1 ham so chuoi vao day*/
-				cout << "Algorithm: Two-Way Matching" << endl;
-				
-				/*Function here*/
-				
-				t2 = std::chrono::high_resolution_clock::now();
-				duration = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1);
-				time = duration.count() / 1000000.0;
-				cout << "Comparision: "<< count_cmp << " | Time count: " << time << " microseconds"<< endl;
-				cout<<"-------------------------------------------------"<<endl;
+
 			}
+				
 		}
-	
+
 	system("pause");
 	return 1;
 }
-
+*/

@@ -1,6 +1,4 @@
-#include "TwoWay.h"
-
-using namespace std;
+#include "Header.h"
 
 int Max(int a, int b, long long &count_cmp)
 {
@@ -97,9 +95,11 @@ int maxSuffixRev(string pat, int lengthPat, int &period, long long &count_cmp)
 	return ms;
 }
 
-void TwoWayMatching(string pat, int patLength, string txt, int txtLength, string outputDir, long long &count_cmp)
+void TwoWayMatching(string pat, string txt, string outputDir, long long &count_cmp)
 {
 	count_cmp = 0;
+	int patLength = pat.length();
+	int txtLength = txt.length();
 	fstream file;
 	file.open(outputDir.c_str(), ios::out | ios::trunc);
 	if (!file) {

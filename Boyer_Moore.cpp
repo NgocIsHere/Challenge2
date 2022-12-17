@@ -1,41 +1,40 @@
-#include<iostream>
-#include<string>
-using namespace std;
+#include "Header.h"
 
-void FindLastOccur(string pat,int L[],int size,int &comp)//Vị trí xuất hiện cuối cùng của mỗi kí tự trong chuỗi pat
+void FindLastOccur(string pat,int L[],int size,long long &cnt_cmp)//Vị trí xuất hiện cuối cùng của mỗi kí tự trong chuỗi pat
 {
-	for (int i = 0;comp++ && i < 255; i++)// 255 là số kí tự trong bảng mã ascii
+	for (int i = 0;cnt_cmp++ && i < 255; i++)// 255 là số kí tự trong bảng mã ascii
 		L[i] = -1;
-	for (int i = 0;comp++ && i < size; i++)
+	for (int i = 0;cnt_cmp++ && i < size; i++)
 	{
 		L[(int)pat[i]] = i;
 	}
 }
 
-int Boyer_Moore_Search(string pat, string str)
+vector<pair<int, int>> Boyer_Moore_Search(string pat, string str, long long &cnt_cmp)
 {
-	int comp = 0;
+	vector<pair<int, int>> index;
 	int m = pat.size();
 	int LastOccur[255];
 
-	FindLastOccur(pat, LastOccur, m,comp);
+	FindLastOccur(pat, LastOccur, m,cnt_cmp);
 
 	int n = str.size();
 	int s = 0;
 	int time = 0;//Đếm số lần xuất hiện chuỗi con
 
-	while (comp++ && s + m <= n)
+	while (cnt_cmp++ && s + m <= n)
 	{
 		int j = m - 1;
 
-		while ((comp++ && j >= 0) && (comp++ && pat[j] == str[s + j]))
+		while ((cnt_cmp++ && j >= 0) && (cnt_cmp++ && pat[j] == str[s + j]))
 			j--;
 
-		if (comp++ && j < 0)
+		if (cnt_cmp++ && j < 0)
 		{
 			cout << "Chuoi con xuat hien tai vi tri tu s = " << s << endl;
+			index.push_back(make_pair(s, s + m - 1));
 			time++;
-			if (comp++ && s + m < n)
+			if (cnt_cmp++ && s + m < n)
 				s = s + m - LastOccur[(int)str[s + m]];
 			else
 				s = s + 1;
@@ -49,5 +48,5 @@ int Boyer_Moore_Search(string pat, string str)
 	{
 		cout << "Khong ton tai chuoi con trong chuoi ban dau. \n";
 	}
-	return comp;
+	return index;
 }
