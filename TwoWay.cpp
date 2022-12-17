@@ -98,6 +98,8 @@ int maxSuffixRev(string pat, int lengthPat, int &period, long long &count_cmp)
 void TwoWayMatching(string pat, string txt, string outputDir, long long &count_cmp)
 {
 	count_cmp = 0;
+	vector<long long>total_cmp;/*Count of comparisons each time the pattern (needle) met
+	in the compared (haystack) string*/
 	int patLength = pat.length();
 	int txtLength = txt.length();
 	fstream file;
@@ -147,6 +149,7 @@ void TwoWayMatching(string pat, string txt, string outputDir, long long &count_c
 				if (++count_cmp && i <= memory)
 				{
 					file << j << " " << j + patLength - 1 << endl;
+					total_cmp.push_back(count_cmp);
 				}
 				j += period;
 				memory = patLength - period - 1;
@@ -174,6 +177,7 @@ void TwoWayMatching(string pat, string txt, string outputDir, long long &count_c
 				if (i < 0)
 				{
 					file << j << " " << j + patLength - 1 << endl;
+					total_cmp.push_back(count_cmp);
 				}
 				j += period;
 			}
@@ -182,4 +186,8 @@ void TwoWayMatching(string pat, string txt, string outputDir, long long &count_c
 		}
 	}
 	file.close();
+	//If the total_cmp vector is not empty(pattern met at least once), change to the comparison of the first instance
+	if (!total_cmp.empty())
+		count_cmp = total_cmp[0];
+	
 }
