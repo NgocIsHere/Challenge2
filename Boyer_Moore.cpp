@@ -17,7 +17,7 @@ vector<pair<int, int>> Boyer_Moore_Search(string pat, string str, long long &cnt
 	int LastOccur[255];
 
 	FindLastOccur(pat, LastOccur, m,cnt_cmp);
-
+	static long long temp;
 	int n = str.size();
 	int s = 0;
 	int time = 0;//Đếm số lần xuất hiện chuỗi con
@@ -31,6 +31,7 @@ vector<pair<int, int>> Boyer_Moore_Search(string pat, string str, long long &cnt
 
 		if (cnt_cmp++ && j < 0)
 		{
+			temp = cnt_cmp;
 			cout << "Chuoi con xuat hien tai vi tri tu s = " << s << endl;
 			index.push_back(make_pair(s, s + m - 1));
 			time++;
@@ -48,5 +49,6 @@ vector<pair<int, int>> Boyer_Moore_Search(string pat, string str, long long &cnt
 	{
 		cout << "Khong ton tai chuoi con trong chuoi ban dau. \n";
 	}
+	cnt_cmp = temp;
 	return index;
 }
