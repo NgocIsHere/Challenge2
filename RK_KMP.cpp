@@ -16,7 +16,7 @@ vector<pair<int, int>> RabinKarpAlgo(string pattern, string text, long long &c)
     int p = 0; // Hash value for pattern
     int t = 0; // Hash value for text
     int i, j;
-
+    static long long temp;
     // Calculate  h = d^(m-1) mod q
     for (int i = 0; ++c && i < m - 1; i++)
     {
@@ -45,6 +45,7 @@ vector<pair<int, int>> RabinKarpAlgo(string pattern, string text, long long &c)
             if (++c && j == m)
             {
                 // cout << i << " " << i + m - 1 << endl;
+                temp = c;
                 pos.push_back(make_pair(i, i + m - 1));
             }
         }
@@ -57,7 +58,7 @@ vector<pair<int, int>> RabinKarpAlgo(string pattern, string text, long long &c)
                 t = t + q;
         }
     }
-
+    c = temp;
     return pos;
 }
 
@@ -98,7 +99,7 @@ vector<pair<int, int>> KMPAlgo(string pattern, string text, long long &c)
     // calculate lps[]
     computePrefix(pattern, m, lps, c);
     int i = 0; int j = 0;
- 
+    static long long temp;
     while (++c && (n - i) >= (m - j))
     {
         if (++c && pattern[j] == text[i])
@@ -108,6 +109,7 @@ vector<pair<int, int>> KMPAlgo(string pattern, string text, long long &c)
         }
         if (++c && j == m)
         {
+            temp = c;
             pos.push_back(make_pair(i - j, i - j + m - 1));
             // back track
             j = lps[j - 1];
@@ -120,6 +122,7 @@ vector<pair<int, int>> KMPAlgo(string pattern, string text, long long &c)
                 i = i + 1;
         }
     }
+    c = temp;
     delete lps;
     return pos;
  
