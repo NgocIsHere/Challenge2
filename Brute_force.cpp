@@ -4,8 +4,9 @@ vector<pair<int, int>> Brute_force_Cmp(string pat, string txt, long long &cnt_cm
 {
     int M = pat.length();
     int N = txt.length();
-    bool test = true;
-    static long long temp ;
+    int flag = 0;
+    cnt_cmp = 0;
+    long long test = 0;
     vector<pair<int, int>> index;
     for (int i = 0; ++cnt_cmp && i <= N - M; i++) {
         int j;
@@ -14,12 +15,13 @@ vector<pair<int, int>> Brute_force_Cmp(string pat, string txt, long long &cnt_cm
                 break;
         }
         if (++cnt_cmp && j== M) 
+            if(flag==0){
+                test = cnt_cmp;
+                flag++;
+            }
             index.push_back(make_pair(i, i + M - 1));
-            if(test==true)
-                temp = cnt_cmp;
-                test = false;
+            
     }
-    cnt_cmp = temp;
+    cnt_cmp = test;
     return index;
 }
-
