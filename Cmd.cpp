@@ -3,11 +3,11 @@
 map<string, int> matching_list = {{"-bf", 1}, {"-rk", 2}, {"-kmp", 3}, {"-bm", 4}, {"-tw", 5}};
 map<string, int> outp = {{"-t", 1}, {"-n", 2}, {"-ind", 3}};
 
-vector<pair<int,int>> OutInfo(int out, int Alg, string pat, string txt, string outputDir)
+vector<pair<int, int>> OutInfo(int out, int Alg, string pat, string txt, string outputDir, long long &cnt_cmp, double &time)
 {
-    long long cnt_cmp = 0;
-    double time = 0;
-    vector<pair<int,int>> pos;
+    cnt_cmp = 0;
+    time = 0;
+    vector<pair<int, int>> pos;
     switch (Alg)
     {
     case 1:
@@ -18,7 +18,6 @@ vector<pair<int,int>> OutInfo(int out, int Alg, string pat, string txt, string o
         auto end = high_resolution_clock::now();
         time = duration_cast<nanoseconds>(end - start).count() / 1000000.0;
         break;
-            
     }
     case 2:
     {
@@ -48,9 +47,14 @@ vector<pair<int,int>> OutInfo(int out, int Alg, string pat, string txt, string o
         break;
     }
     case 5:
+    {
         cout << "# Thuat toan Two-way" << endl;
+        auto start = high_resolution_clock::now();
         TwoWayMatching(pat, txt, outputDir, cnt_cmp);
+        auto end = high_resolution_clock::now();
+        time = duration_cast<nanoseconds>(end - start).count() / 1000000.0;
         break;
+    }
     default:
         break;
     }
@@ -91,22 +95,26 @@ void Cmd(int argc, char **argv)
     string pat;
     string txt;
     int s[7] = {1, 5, 10, 100, 200, 500, 1000};
+    
     for (int i = 0; i < 5; i++)
         for (int j = 0; j < 7; j++)
         {
             if (s[i] * 100 > s[j] * 10)
             {
-                createData(s[j] * 10, s[i] * 100, ipath+to_string(i)+to_string(j), false);
+                //createData(s[j] * 10, s[i] * 100, ipath+to_string(i)+to_string(j), false);
                 ifstream readfile;
                 readfile.open((ipath+to_string(i)+to_string(j)).c_str());
                 getline(readfile, pat);
                 getline(readfile, txt);
                 readfile.close();
+                long long cnt_cmp = 0;
+                double time = 0;
                 cout<<"  #"<<(ipath+to_string(i)+to_string(j)).c_str()<<" "<<s[j] * 10<<" "<< s[i] * 100<<endl;
-                vector<pair<int,int>> pos = OutInfo(out, Alg, pat, txt, opath+to_string(i)+to_string(j));
+                vector<pair<int,int>> pos = OutInfo(out, Alg, pat, txt, opath+to_string(i)+to_string(j),cnt_cmp,time);
                 saveOutF(opath+to_string(i)+to_string(j), pos);
             }
         }
+    
 }
 int main(int argc, char **argv)
 {
