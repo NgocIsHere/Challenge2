@@ -16,6 +16,7 @@ vector<pair<int, int>> RabinKarpAlgo(string pattern, string text, long long &c)
     int p = 0; // Hash value for pattern
     int t = 0; // Hash value for text
     int i, j;
+    bool flag =true;
     static long long temp;
     // Calculate  h = d^(m-1) mod q
     for (int i = 0; ++c && i < m - 1; i++)
@@ -45,7 +46,10 @@ vector<pair<int, int>> RabinKarpAlgo(string pattern, string text, long long &c)
             if (++c && j == m)
             {
                 // cout << i << " " << i + m - 1 << endl;
-                temp = c;
+                if(flag==true){
+                    temp = c;
+                    flag = false;
+                }
                 pos.push_back(make_pair(i, i + m - 1));
             }
         }
@@ -61,7 +65,6 @@ vector<pair<int, int>> RabinKarpAlgo(string pattern, string text, long long &c)
     c = temp;
     return pos;
 }
-
 void computePrefix(string pattern, int m, int* lps, long long &c)
 {
     int len = 0;
@@ -78,13 +81,9 @@ void computePrefix(string pattern, int m, int* lps, long long &c)
             i++;
         }
         else
-        {   
-            if(++c && len != 0) 
-               len = lps[len -1];
-            else{
-               lps[i] = 0;
-               i++;
-            }
+        {
+            lps[i] = 0;
+            i++;
         }
     }
 }
@@ -92,13 +91,14 @@ void computePrefix(string pattern, int m, int* lps, long long &c)
 vector<pair<int, int>> KMPAlgo(string pattern, string text, long long &c)
 {
     vector<pair<int, int>> pos;
+    bool flag = true;
     int m = pattern.length();
     int n = text.length();
     // lps[] will hold the longest prefix suffix
     int* lps = new int [m];
     // calculate lps[]
     computePrefix(pattern, m, lps, c);
-    int i = 0; int j = 0;
+    int i = 0, j = 0;
     static long long temp;
     while (++c && (n - i) >= (m - j))
     {
@@ -109,8 +109,11 @@ vector<pair<int, int>> KMPAlgo(string pattern, string text, long long &c)
         }
         if (++c && j == m)
         {
-            temp = c;
             pos.push_back(make_pair(i - j, i - j + m - 1));
+            if(flag==true){
+				temp = c;
+				flag = false;
+			}
             // back track
             j = lps[j - 1];
         }
@@ -122,8 +125,8 @@ vector<pair<int, int>> KMPAlgo(string pattern, string text, long long &c)
                 i = i + 1;
         }
     }
-    c = temp;
     delete lps;
+    c = temp;
     return pos;
  
 }
