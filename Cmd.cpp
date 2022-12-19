@@ -12,7 +12,7 @@ vector<pair<int, int>> OutInfo(int out, int Alg, string pat, string txt, string 
     {
     case 1:
     {
-        //cout << "# Thuat toan Brute-force" << endl;
+        cout << "# Thuat toan Brute-force" << endl;
         auto start = high_resolution_clock::now();
         pos = Brute_force_Cmp(pat, txt, cnt_cmp);
         auto end = high_resolution_clock::now();
@@ -21,7 +21,7 @@ vector<pair<int, int>> OutInfo(int out, int Alg, string pat, string txt, string 
     }
     case 2:
     {
-        //cout << "# Thuat toan Rabin-Karp" << endl;
+        cout << "# Thuat toan Rabin-Karp" << endl;
         auto start = high_resolution_clock::now();
         pos = RabinKarpAlgo(pat, txt, cnt_cmp);
         auto end = high_resolution_clock::now();
@@ -30,7 +30,7 @@ vector<pair<int, int>> OutInfo(int out, int Alg, string pat, string txt, string 
     }
     case 3:
     {
-        //cout << "# Thuat toan Knuth-Morris-Pratt" << endl;
+        cout << "# Thuat toan Knuth-Morris-Pratt" << endl;
         auto start = high_resolution_clock::now();
         pos = KMPAlgo(pat, txt, cnt_cmp);
         auto end = high_resolution_clock::now();
@@ -39,7 +39,7 @@ vector<pair<int, int>> OutInfo(int out, int Alg, string pat, string txt, string 
     }
     case 4:
     {
-        //cout << "# Thuat toan Boyer–Moore" << endl;
+        cout << "# Thuat toan Boyer–Moore" << endl;
         auto start = high_resolution_clock::now();
         pos = Boyer_Moore_Search(pat, txt, cnt_cmp);
         auto end = high_resolution_clock::now();
@@ -48,7 +48,7 @@ vector<pair<int, int>> OutInfo(int out, int Alg, string pat, string txt, string 
     }
     case 5:
     {
-        //cout << "# Thuat toan Two-way" << endl;
+        cout << "# Thuat toan Two-way" << endl;
         auto start = high_resolution_clock::now();
         TwoWayMatching(pat, txt, outputDir, cnt_cmp);
         auto end = high_resolution_clock::now();
@@ -95,7 +95,7 @@ void Cmd(int argc, char **argv)
     string pat;
     string txt;
     int s[7] = {1, 5, 10, 100, 200, 500, 1000};
-    
+    /*
     for (int i = 0; i < 5; i++){
         for (int j = 0; j < 7; j++)
         {
@@ -117,6 +117,20 @@ void Cmd(int argc, char **argv)
                 }
             }
         }
+    }
+    */
+    ifstream readfile;
+    readfile.open(ipath.c_str());
+    getline(readfile, pat);
+    getline(readfile, txt);
+    readfile.close();
+    long long cnt_cmp = 0;
+    double time = 0;
+    cout<<"  #"<<ipath.c_str()<<" "<<pat.length()<<" "<<txt.length()<<endl;
+    vector<pair<int,int>> pos = OutInfo(out, Alg, pat, txt, opath.c_str(), cnt_cmp, time);
+    if(Alg != 5)
+    {
+        saveOutF(opath.c_str(), pos);
     }
 }
 int main(int argc, char **argv)
