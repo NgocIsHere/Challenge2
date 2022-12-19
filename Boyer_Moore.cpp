@@ -20,7 +20,7 @@ vector<pair<int, int>> Boyer_Moore_Search(string pat, string str, long long &cnt
 	int s = 0;
 	int time = 0;//Đếm số lần xuất hiện chuỗi con
 	int flag = 0;
-    static long long temp;
+        long long temp;
 	while (cnt_cmp++ && s + m <= n)
 	{
 		int j = m - 1;
@@ -51,6 +51,10 @@ vector<pair<int, int>> Boyer_Moore_Search(string pat, string str, long long &cnt
 	{
 		cout << "Khong ton tai chuoi con trong chuoi ban dau. \n";
 	}
-	cnt_cmp = temp;
+	if(flag>=1)
+	{
+		cnt_cmp = temp;
+	}
+	
 	return index;
 }
