@@ -99,8 +99,8 @@ void TwoWayMatching(string pat, string txt, string outputDir, long long &count_c
 {
 	count_cmp = 0;
 	long long first_count;/*Count of comparisons the first time the pattern (needle) met
-	int instance = 0;
 	in the compared (haystack) string*/
+	int instance = 0;
 	int patLength = pat.length();
 	int txtLength = txt.length();
 	fstream file;
