@@ -62,15 +62,21 @@ vector<pair<int, int>> OutInfo(int out, int Alg, string pat, string txt, string 
     switch (out)
     {
     case 1:
+    {
         cout << "Thoi gian: " << time << endl;
         break;
+    }
     case 2:
+    {
         cout << "So phep so sanh: " << cnt_cmp << endl;
         break;
+    }
     case 3:
+    {
         cout << "Thoi gian: " << time << endl;
         cout << "So phep so sanh: " << cnt_cmp << endl;
         break;
+    }
     default:
         break;
     }
