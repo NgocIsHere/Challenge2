@@ -95,8 +95,9 @@ void Cmd(int argc, char **argv)
     string pat;
     string txt;
     int s[7] = {1, 5, 10, 100, 200, 500, 1000};
-    
+    /* Test 21 file data:
     for (int i = 0; i < 5; i++)
+    {
         for (int j = 0; j < 7; j++)
         {
             if (s[i] * 100 > s[j] * 10)
@@ -114,7 +115,19 @@ void Cmd(int argc, char **argv)
                 saveOutF(opath+to_string(i)+to_string(j), pos);
             }
         }
-    
+    }
+    */
+    // Test:
+    ifstream readfile;
+    readfile.open(ipath.c_str());
+    getline(readfile, pat);
+    getline(readfile, txt);
+    readfile.close();
+    long long cnt_cmp = 0;
+    double time = 0;
+    cout<<"  #"<<ipath.c_str()<<"_"<<pat.length()<<"_"<<txt.length<<endl;
+    vector<pair<int,int>> pos = OutInfo(out, Alg, pat, txt, opath,cnt_cmp,time);
+    saveOutF(opath, pos);
 }
 int main(int argc, char **argv)
 {
