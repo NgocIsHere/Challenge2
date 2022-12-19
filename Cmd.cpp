@@ -95,6 +95,7 @@ void Cmd(int argc, char **argv)
     string pat;
     string txt;
     int s[7] = {1, 5, 10, 100, 200, 500, 1000};
+    // for 21 file input data: idata00,01...
     /*
     for (int i = 0; i < 5; i++){
         for (int j = 0; j < 7; j++)
