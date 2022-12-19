@@ -15,12 +15,13 @@ vector<pair<int, int>> Boyer_Moore_Search(string pat, string str, long long &cnt
 	vector<pair<int, int>> index;
 	int m = pat.size();
 	int LastOccur[255];
+
 	FindLastOccur(pat, LastOccur, m,cnt_cmp);
+	long long temp;
 	int n = str.size();
 	int s = 0;
 	int time = 0;//Đếm số lần xuất hiện chuỗi con
-	int flag = 0;
-        long long temp;
+
 	while (cnt_cmp++ && s + m <= n)
 	{
 		int j = m - 1;
@@ -31,12 +32,11 @@ vector<pair<int, int>> Boyer_Moore_Search(string pat, string str, long long &cnt
 		if (cnt_cmp++ && j < 0)
 		{
 			cout << "Chuoi con xuat hien tai vi tri tu s = " << s << endl;
-			if(flag==0){
-				temp = cnt_cmp;
-				flag++;
-			}
 			index.push_back(make_pair(s, s + m - 1));
 			time++;
+			if(time==1){
+				temp = cnt_cmp;
+			}
 			if (cnt_cmp++ && s + m < n)
 				s = s + m - LastOccur[(int)str[s + m]];
 			else
@@ -51,10 +51,8 @@ vector<pair<int, int>> Boyer_Moore_Search(string pat, string str, long long &cnt
 	{
 		cout << "Khong ton tai chuoi con trong chuoi ban dau. \n";
 	}
-	if(flag>=1)
-	{
+	else{
 		cnt_cmp = temp;
 	}
-	
 	return index;
 }
